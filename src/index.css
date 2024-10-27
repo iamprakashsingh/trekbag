@@ -175,8 +175,8 @@ label > label {
 
 .empty-state {
   position: absolute;
-  top: 40%;
-  left: 50%;
+  top: 46%;
+  left: 39%;
   transform: translateX(-50%);
   text-align: center;
 }
