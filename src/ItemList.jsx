@@ -1,6 +1,6 @@
 import Select from "react-select";
 import EmptyView from "./EmptyView";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const sortingOptions = [
     {
@@ -22,17 +22,20 @@ export default function ItemList({items,handleDelteItem,handleToggleItem}) {
     const [sortBy,setSortBy] = useState("default");
 
     // we are just cloning a new array and sorting it based on the sorting option selected by the user.
-    const sortedItems = [...items].sort((a,b) => {
-        if(sortBy === "default"){
-            return 0;
-        }
-        if(sortBy === "unpacked"){
-            return a.packed - b.packed;
-        }
-        if(sortBy === "packed"){
-            return b.packed - a.packed;
-        }
-    })
+    const sortedItems = useMemo(
+    ()=>{
+            return [...items].sort((a,b) => {
+                if(sortBy === "default"){
+                    return 0;
+                }
+                if(sortBy === "unpacked"){
+                    return a.packed - b.packed;
+                }
+                if(sortBy === "packed"){
+                    return b.packed - a.packed;
+                }
+            })
+        },[items,sortBy]);
   return (
     <ul>
         {items.length ===0 && <EmptyView/>}
